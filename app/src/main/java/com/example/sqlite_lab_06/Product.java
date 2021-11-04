@@ -36,4 +36,7 @@ public class Product {
     public int getQuantity() {
         return _quantity;
     }
+
+    public void setSku(int parseInt) {
+    }
 }
