@@ -22,11 +22,15 @@ public class MyDBHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
-    // this is called first time when database is accesed
+    // this is called first time when database is accessed
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //add code here @ kenneth
-
+        //  Kenneth
+        String CREATE_PRODUCTS_TABLE = "CREATE TABLE " + TABLE_PRODUCTS + "("
+                                        + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_PRODUCTNAME
+                                        + " TEXT," + COLUMN_SKU + "INTEGER" + ")";
+        db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
     //this is called if the db version changes
@@ -34,7 +38,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 
-        // add code here @kenneth
+        // Kenneth
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+        onCreate(db);
 
     }
 
@@ -50,6 +56,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_PRODUCTS, null, values);
         db.close();
+    }
+
+    public void removeProduct(Product product){
+
     }
 
 
