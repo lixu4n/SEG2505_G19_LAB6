@@ -63,6 +63,27 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
 
+    //(Daouda) lecture à partir d'une base de données
+
+    public <retun> Product findProduct (String productname){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "Select * FROM"+TABLE_PRODUCTS + "WHERE"+ COLUMN_PRODUCTNAME+"=\""+productname+"\"";
+        Cursor cursor = db.rawQuery(query, null);
+        Product product = new Product ();
+        if (cursor.moveToFirst()){
+            product.setID(Integer.parseInt(cursor.getString(0)));
+            product.setProductName(cursor.getString(1));
+            product.setSku(Integer.parseInt(cursor.getString(2)));
+            cursor.close();
+        } else {
+            product= null;
+        }
+        db.close();
+        return product;
+    }
+
+
+
 
 
 }
