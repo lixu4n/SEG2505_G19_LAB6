@@ -17,7 +17,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_PRODUCTNAME = "productname";
     public static final String COLUMN_SKU = "SKU";
 
-
     public MyDBHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
