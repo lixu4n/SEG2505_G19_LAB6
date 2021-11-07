@@ -37,6 +37,28 @@ public class MainActivity extends AppCompatActivity {
         addButtn = (Button) findViewById(R.id.addButtn);
         findButtn = (Button) findViewById(R.id.findButtn);
         delButtn = (Button) findViewById(R.id.deleteButtn);
+
+        findButtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lookupProduct(v);
+            }
+        });
+
+        addButtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newProduct(v);
+            }
+        });
+
+        delButtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeProduct(v);
+            }
+        });
+
     }
 
 
@@ -58,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
     public void lookupProduct (View view) {
 
         // TODO: get from Database
-        com.example.sqlite_lab_06.Product product = null;
+
+        MyDBHandler dbHandler = new MyDBHandler(this);
+
+        Product product = dbHandler.findProduct(productName.getText().toString());
 
         if (product != null) {
             productID.setText(String.valueOf(product.getID()));
@@ -88,23 +113,8 @@ public class MainActivity extends AppCompatActivity {
         Intent aboutIntent = new Intent(this, com.example.sqlite_lab_06.About.class);
         startActivity(aboutIntent);
     }
-//(Daouda) lecture à partir d'une base de données
-    public <retun> Product findProduct (String productname){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "Select * FROM"+TABLE_PRODUCTS + "WHERE"+ COLUMN_PRODUCTNAME+"=\""+productname+"\"";
-        Cursor cursor = db.rawQuery(query, null);
-        Product product = new Product ();
-        if (cursor.moveToFirst()){
-            product.setID(Integer.parseInt(cursor.getString(0)));
-            product.setProductName(cursor.getString(1));
-            product.setSku(Integer.parseInt(cursor.getString(2)));
-            cursor.close();
-        } else {
-            product= null;
-        }
-        db.close();
-        return product;
-    }
+
+
 
     private SQLiteDatabase getReadableDatabase() {
         return null;
